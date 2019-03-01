@@ -1,11 +1,18 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Dictionary {
     private HashMap<String, Integer> wordList=new HashMap<>();
+    private HashMap<Integer, String> indexList=new HashMap<>();
+    private ArrayList<String> stopWords=new ArrayList<>();
 
     public Dictionary(){}
+
+    public Dictionary(ArrayList<String> stopWords){
+        this.stopWords=stopWords;
+    }
 
     public Dictionary(HashMap<String, Integer> wordList){
         this.wordList=wordList;
@@ -16,9 +23,22 @@ public class Dictionary {
             return wordList.get(word);
         }
 
-        int index=wordList.size();
-        wordList.put(word, index);
-        return index;
+        if(!stopWords.contains(word)) {
+            int index = wordList.size();
+            wordList.put(word, index);
+            indexList.put(index, word);
+            return index;
+        }
+
+        return -1;
+    }
+
+    public String searchIndex(int index){
+        if(indexList.containsKey(index)){
+            return indexList.get(index);
+        }
+
+        return null;
     }
 
     public int size(){

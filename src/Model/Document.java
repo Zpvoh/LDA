@@ -16,6 +16,7 @@ public class Document {
 
     private int index;
     private int topicNum;
+    private ArrayList<String> stopWords=new ArrayList<>();
     public ArrayList<String> words=new ArrayList<>();
     public ArrayList<Integer> topics=new ArrayList<>();
 
@@ -27,8 +28,9 @@ public class Document {
         this.index=index;
     }
 
-    public Document(int index, String article, int topicNum){
+    public Document(int index, String article, int topicNum, ArrayList<String> stopWords){
         this.index=index;
+        this.stopWords=stopWords;
         splitArticle(article);
         this.topicNum=topicNum;
     }
@@ -38,8 +40,11 @@ public class Document {
         Pattern wordPattern=Pattern.compile("([a-z]|[A-Z])+");
         Matcher matcher=wordPattern.matcher(article);
         while(matcher.find()){
-            words.add(matcher.group().toLowerCase());
-            topics.add(0);
+            String word=matcher.group().toLowerCase();
+            if(!stopWords.contains(word)) {
+                words.add(word);
+                topics.add(0);
+            }
         }
     }
 

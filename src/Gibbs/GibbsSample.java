@@ -5,7 +5,7 @@ public abstract class GibbsSample {
     protected int dimensionNum1;
     protected int[][] sampleByDimension;
     protected int rangeOfDimension;
-    protected final int N=100;
+    protected final int N=500;
     public double[][][] probableByDimension;
 
     public GibbsSample(){
